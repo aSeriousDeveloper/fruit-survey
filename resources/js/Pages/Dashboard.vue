@@ -1,6 +1,26 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import {Head, router, useForm} from '@inertiajs/vue3';
+import FruitSubmissionForm from "@/Pages/Partials/FruitSubmissionForm.vue";
+import FruitSubmissions from "@/Pages/Partials/FruitSubmissions.vue";
+
+defineProps<{
+    fruit: Array<object>;
+    submissions: Array<object>;
+}>();
+
+const form = useForm({
+    fruit: [],
+    last_eaten: null,
+})
+
+const submit = () => {
+    form.post(route('fruit'), {
+        onSuccess: () => {
+            form.reset();
+        },
+    });
+};
 </script>
 
 <template>
@@ -18,11 +38,10 @@ import { Head } from '@inertiajs/vue3';
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div
-                    class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800"
+                    class="overflow-hidden grid lg:grid-cols-2 bg-white shadow-sm sm:rounded-lg dark:bg-gray-800"
                 >
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        You're logged in!
-                    </div>
+                    <FruitSubmissionForm :fruit="fruit" />
+                    <FruitSubmissions :submissions="submissions" />
                 </div>
             </div>
         </div>
