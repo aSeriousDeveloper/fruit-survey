@@ -21,6 +21,7 @@ function handleImageError() {
         <img
             id="background"
             class="absolute -left-20 top-0 max-w-[877px]"
+            alt="Logo"
             src="https://laravel.com/assets/img/welcome/background.svg"
         />
         <div
